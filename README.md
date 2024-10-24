@@ -1,0 +1,1 @@
+# devspaces-chrome-sidecar
