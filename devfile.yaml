@@ -59,12 +59,16 @@ commands:
     component: prep-workspace
     label: Copy OpenShift CLI
   id: prep-workspace
+- exec:
+    commandLine: /usr/bin/Xvnc :0 -nolisten tcp -UseIPv4 -interface lo -localhost -SecurityTypes None -rfbport 5900 -desktop chrome -nevershared -noclipboard -noreset -DisconnectClients -geometry 1280x1024 -depth 24 -verbose & /usr/bin/google-chrome --display=:0 --disable-gpu --disable-software-rasterizer --disable-dev-shm-usage --disable-plugins --disable-plugins-discovery --disable-notifications --disable-sync --mute-audio --dns-prefetch-disable --noremote --window-size=1280,1024 & /usr/bin/novnc_server --listen 3000 --web /usr/share/novnc --vnc localhost:5900
+    component: chrome
+    label: Start Chrome
+  id: start-chrome
+- exec:
+    commandLine: VNC_HOST=$(oc get route ${DEVWORKSPACE_ID}-chrome-3000-tiger-vnc -o jsonpath={.spec.host}) ; echo "https://${VNC_HOST}/vnc.html?host=${VNC_HOST}&port=443"
+    component: dev-tools
+    label: Get Chrome URL
+  id: get-chrome-url
 events:
   preStart:
     - prep-workspace
-
-
-
-
-
-
