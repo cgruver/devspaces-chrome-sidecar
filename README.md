@@ -1,34 +1,41 @@
-# devspaces-chrome-sidecar
+# Google Chrome Browser in a Dev Spaces Workspace
 
-To Run Chrome:
+This project is a demo of how to run a Chrome browser from within a Dev Spaces workspace.
 
-1. Open a Terminal in the `chrome` container
+Chrome runs in a sidecar container which has been configured with an X11 server.
 
-1. Start the VNC Server:
+The X11 display is provided by TigerVNC.
 
-   ```bash
-   nohup /usr/bin/Xvnc :0 -nolisten tcp -UseIPv4 -interface lo -localhost -SecurityTypes None -rfbport 5900 -desktop chrome -nevershared -noclipboard -noreset -DisconnectClients -geometry 1280x1024 -depth 24 -verbose  > /tmp/xvnclog.out 2>&1 &
-   ```
+External access to Chrome is provided by the NoVNC proxy server.
 
-1. Start Chrome:
+The artifacts to build the Chrome sidecar image are located in the `devspaces-chrome-sidecar` folder.
 
-   ```bash
-   nohup /usr/bin/google-chrome --display=:0 --disable-gpu --disable-software-rasterizer --disable-dev-shm-usage --disable-plugins --disable-plugins-discovery --disable-notifications --disable-sync --mute-audio --dns-prefetch-disable --noremote --window-size=1280,1024 > /tmp/googlelog.out 2>&1 &
-   ```
+How to run the demo:
 
-1. Start the NoVNC Proxy:
+1. Start an Angular web app:
 
    ```bash
-   nohup /usr/bin/novnc_server --listen 3000 --web /usr/share/novnc --vnc localhost:5900 > /tmp/novnclog.out 2>&1 &
+   cd test-app
+   ng server
    ```
 
-1. Open a Terminal in the `dev-tools` container:
-
-   Get the URL for the NoVNC Proxy:
+1. Start the Chrome Browser:
 
    ```bash
-   VNC_HOST=$(oc get route ${DEVWORKSPACE_ID}-chrome-3000-tiger-vnc -o jsonpath={.spec.host})
-   echo "https://${VNC_HOST}/vnc.html?host=${VNC_HOST}&port=443"
+   Execute the VS Code Task: "Start Chrome"
    ```
 
-1. Point your Browser at the above URL
+1. Get the password for the VNC Server:
+
+   __Note:__ The password is randomly generated each time the VNC server is started.
+
+   ```bash
+   Execute the VS Code Task: "Get VNC Password"
+   ```
+
+1. Open the `google-chrome` endpoint (Port 6080/https)
+
+   Click on the `Connect` button and enter the password when prompted.
+
+1. In Chrome, navigate to `http://localhost:4200`
+

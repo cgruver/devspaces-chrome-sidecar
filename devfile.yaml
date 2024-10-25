@@ -22,6 +22,10 @@ components:
       value: "/projects/home"
     - name: VSCODE_DEFAULT_WORKSPACE
       value: "/projects/devspaces-chrome-sidecar/devspaces-chrome-sidecar.code-workspace"
+    endpoints:
+      - exposure: none
+        name: angular
+        targetPort: 4200
 - name: chrome
   container:
     image: quay.io/cgruver0/che/chrome-sidecar:latest
