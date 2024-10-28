@@ -19,11 +19,16 @@ function startChrome() {
   VNC_PASSWD=$(genVncPasswd)
   echo ${VNC_PASSWD} | vncpasswd -f > /tmp/vncpasswd
   echo ${VNC_PASSWD} > /tmp/vncsec
-  /usr/bin/Xvnc :0 -nolisten tcp -UseIPv4 -interface lo -localhost -SecurityTypes VncAuth -PasswordFile=/tmp/vncpasswd -rfbport 5900 -desktop chrome -nevershared -noclipboard -noreset -DisconnectClients -geometry 1280x1024 -depth 24 -verbose &
+  /usr/bin/Xvnc :0 -nolisten tcp -UseIPv4 -interface lo -localhost -SecurityTypes VncAuth -PasswordFile=/tmp/vncpasswd -rfbport 5900 -desktop chrome -nevershared -noclipboard -noreset -DisconnectClients -geometry 1280x1024 -depth 24 -verbose > /tmp/xvnc.out 2>&1 &
 
-  /usr/bin/google-chrome --display=:0 --disable-gpu --disable-software-rasterizer --disable-dev-shm-usage --disable-plugins --disable-plugins-discovery --disable-notifications --disable-sync --mute-audio --dns-prefetch-disable --noremote --window-size=1280,1024 &
+  /usr/bin/google-chrome --display=:0 --disable-gpu --disable-software-rasterizer --disable-dev-shm-usage --disable-plugins --disable-plugins-discovery --disable-notifications --disable-sync --mute-audio --dns-prefetch-disable --noremote --window-size=1280,1024 > /tmp/chrome.out 2>&1 &
 
-  /usr/bin/novnc_server --listen 6080 --web /usr/share/novnc --vnc localhost:5900 &
+  /usr/bin/novnc_server --listen 6080 --web /usr/share/novnc --vnc localhost:5900 > /tmp/novnc.out 2>&1 &
+
+  echo "Use this password to access the Chrome Browser:"
+  echo ""
+  echo $(cat /tmp/vncsec)
+  echo ""
 
   tail -f /dev/null
 }
