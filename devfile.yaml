@@ -28,7 +28,7 @@ components:
         targetPort: 4200
 - name: chrome
   container:
-    image: quay.io/cgruver0/che/chrome-sidecar:latest
+    image: image-registry.openshift-image-registry.svc:5000/devspaces-images/chrome-sidecar:latest
     sourceMapping: /projects
     memoryLimit: 2Gi
     cpuLimit: 1000m
