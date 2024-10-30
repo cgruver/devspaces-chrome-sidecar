@@ -10,6 +10,8 @@ External access to Chrome is provided by the NoVNC proxy server.
 
 The artifacts to build the Chrome sidecar image are located in the `devspaces-chrome-sidecar` folder.
 
+__Note:__ Before you can use the `devfile` included in this repo.  You will need to build the Chrome sidecar image.
+
 How to run the demo:
 
 1. Start an Angular web app:
