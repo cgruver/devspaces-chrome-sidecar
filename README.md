@@ -8,9 +8,9 @@ The X11 display is provided by TigerVNC.
 
 External access to Chrome is provided by the NoVNC proxy server.
 
-The artifacts to build the Chrome sidecar image are located in the `devspaces-chrome-sidecar` folder.
+The artifacts to build the Chrome sidecar image are located in the `devspaces-chrome-sidecar-ubi9` which requires a Red Hat subscription, or the `devspaces-chrome-sidecar-fedora` folder.
 
-__Note:__ Before you can use the `devfile` included in this repo.  You will need to build the Chrome sidecar image.
+__Note:__ By default, this workspace will use the Fedora based image since it is freely re-distributable.
 
 How to run the demo:
 

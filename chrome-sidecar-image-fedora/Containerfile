@@ -1,0 +1,24 @@
+FROM quay.io/fedora/fedora:40
+
+ARG USER_HOME_DIR="/home/user"
+ARG WORK_DIR="/projects"
+
+ENV HOME=${USER_HOME_DIR}
+
+USER 0
+
+COPY ./chrome.repo /etc/yum.repos.d/chrome.repo
+COPY --chown=0:0 ./entrypoint.sh /entrypoint.sh
+
+RUN dnf install -y tigervnc-server novnc google-chrome-stable alsa-firmware alsa-lib alsa-tools-firmware catatonit procps-ng openssl hostname ; \
+    chmod +x /entrypoint.sh ; \
+    chown 0:0 /etc/passwd /etc/group ; \
+    mkdir -p ${USER_HOME_DIR} ; \
+    mkdir -p ${WORK_DIR} ; \
+    chgrp -R 0 /home ; \
+    chown -R 0:0 /usr/share/novnc ; \
+    chmod -R g=u /etc/passwd /etc/group /home /usr/share/novnc
+
+WORKDIR /tmp
+
+CMD ["/usr/libexec/podman/catatonit","--","/entrypoint.sh"]
