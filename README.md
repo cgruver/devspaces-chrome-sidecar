@@ -27,13 +27,7 @@ How to run the demo:
    Execute the VS Code Task: "Start Chrome"
    ```
 
-1. Get the password for the VNC Server:
-
-   __Note:__ The password is randomly generated each time the VNC server is started.
-
-   ```bash
-   Execute the VS Code Task: "Get VNC Password"
-   ```
+1. Copy the password for the VNC Server:
 
 1. Open the `google-chrome` endpoint (Port 6080/https)
 
